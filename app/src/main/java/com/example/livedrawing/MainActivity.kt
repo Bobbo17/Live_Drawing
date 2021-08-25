@@ -8,6 +8,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var liveDrawingView: LiveDrawingView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         val size = Point()
         display.getSize(size)
 
-        liveDrawingView = LiveDrawingView(this, size.x)
+        liveDrawingView = LiveDrawingView(this, size)
 
         setContentView(liveDrawingView)
 
@@ -30,4 +31,6 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         liveDrawingView.pause()
     }
+
+
 }

@@ -2,11 +2,12 @@ package com.example.livedrawing
 
 import android.content.Context
 import android.graphics.*
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.SurfaceView
 
-class LiveDrawingView (context:Context, screenX: Int): SurfaceView(context), Runnable {
+class LiveDrawingView (context:Context, screen: Point): SurfaceView(context), Runnable {
     private val debugging = true
 
     private lateinit var canvas: Canvas
@@ -16,8 +17,8 @@ class LiveDrawingView (context:Context, screenX: Int): SurfaceView(context), Run
 
     private val milInSecs: Long = 1000
 
-    private val fontSize: Int = screenX / 20
-    private val fontMargin: Int = screenX /75
+    private val fontSize: Int = screen.x / 20
+    private val fontMargin: Int = screen.x /75
 
     private var btnReset: RectF
     private var btnTogglePause: RectF
@@ -40,7 +41,7 @@ class LiveDrawingView (context:Context, screenX: Int): SurfaceView(context), Run
         btnTogglePause = RectF(0f,150f,100f,250f)
 
         for (i in 0 until maxSystems) {
-            particleSystems.add(ParticleSystem())
+            particleSystems.add(ParticleSystem(screen))
             particleSystems[i].initParticles(particlesPerSystem)
         }
     }

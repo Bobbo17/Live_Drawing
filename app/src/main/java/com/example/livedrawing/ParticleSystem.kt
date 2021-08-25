@@ -1,21 +1,19 @@
 package com.example.livedrawing
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PointF
+import android.graphics.*
 import java.util.*  //Well then... java.util.* contains
 import kotlin.concurrent.thread
 import kotlin.math.absoluteValue
 
-class ParticleSystem {
+class ParticleSystem (scrn:Point){
     private var alpha: Int = 225
     private var duration: Float = 0f
     private var particles: ArrayList<Particle> = ArrayList()
     private val random = Random()
-    private val screenX = MainActivity().sizeX
-    private val screenY = MainActivity().sizeY
+    private val screen = scrn
     var isRunning = false
+    val screenX = scrn.x
+    val screenY = scrn.y
 
 
 
@@ -29,7 +27,7 @@ class ParticleSystem {
 
             val direction: PointF = PointF(Math.cos(angle).toFloat()*speed, Math.sin(angle).toFloat() * speed)
 
-            particles.add(Particle(direction, 166, 55, 5))
+            particles.add(Particle(direction,screen, 166, 55, 5))
         }
     }
 
@@ -87,6 +85,7 @@ class ParticleSystem {
 
     fun draw(canvas: Canvas) {
 
+
         val paint = Paint()
         for (p in particles) {
             //particleColor
@@ -104,9 +103,9 @@ class ParticleSystem {
             val sizeY = 2f
 
             //canvas.drawRect(p.position.x, p.position.y, p.position.x + sizeX, p.position.y + sizeY, paint)
-            if (p.position.x <= 0) p.position.x = 0f
-            else if (p.position.x >= screenX-5) p.position.x = screenX-5f
-            if (p.position.y >= screenY) p.position.y = screenY.toFloat()
+//            if (p.position.x <= 0) p.position.x = 0f
+//            else if (p.position.x >= screenX-5) p.position.x = screenX-5f
+//            if (p.position.y >= screenY) p.position.y = screenY.toFloat()
             canvas.drawCircle(p.position.x, p.position.y, (sizeX + sizeY) / 2,paint)
         }
     }
